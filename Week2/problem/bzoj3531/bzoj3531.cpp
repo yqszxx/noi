@@ -202,7 +202,7 @@ inline int solveMax(int c, int x, int y)
                         1,
                         N,
                         tree[tree[x].chainTop].posInSegTree,
-                        tree[x].chainTop
+                        tree[x].posInSegTree
                 ));
                 x = tree[tree[x].chainTop].father;
         }
@@ -237,7 +237,7 @@ int lca(int x, int y)
 
 int main()
 {
-        //freopen("data.in", "r", stdin);
+        freopen("data.in", "r", stdin);
         N = getInt();
         Q = getInt();
         for (int i = 1; i <= N; i++) {
@@ -272,16 +272,15 @@ int main()
                 } else {
                         lcaOfXY = lca(x, y);
                         if (cmd[1] == 'S') {
-                                long long t = solveSum(tree[x].c, x, lcaOfXY) + solveSum(tree[y].c, y, lcaOfXY);
+                                long long t = solveSum(tree[x].c, x, lcaOfXY) + solveSum(tree[x].c, y, lcaOfXY);
                                 if (tree[x].c == tree[lcaOfXY].c) {
                                         t -= tree[lcaOfXY].w;
                                 }
                                 printf("%lld\n", t);
                         } else {
-                                printf("%d\n", max(solveMax(tree[x].c, x, lcaOfXY), solveMax(tree[y].c, y, lcaOfXY)));
+                                printf("%d\n", max(solveMax(tree[x].c, x, lcaOfXY), solveMax(tree[x].c, y, lcaOfXY)));
                         }
                 }
         }
         return 0;
 }
-
