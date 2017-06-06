@@ -237,6 +237,7 @@ int lca(int x, int y)
 
 int main()
 {
+        //freopen("data.in", "r", stdin);
         N = getInt();
         Q = getInt();
         for (int i = 1; i <= N; i++) {
@@ -272,7 +273,7 @@ int main()
                         lcaOfXY = lca(x, y);
                         if (cmd[1] == 'S') {
                                 long long t = solveSum(tree[x].c, x, lcaOfXY) + solveSum(tree[y].c, y, lcaOfXY);
-                                if (tree[x].c == tree[y].c) {
+                                if (tree[x].c == tree[lcaOfXY].c) {
                                         t -= tree[lcaOfXY].w;
                                 }
                                 printf("%lld\n", t);
