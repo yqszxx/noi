@@ -41,7 +41,8 @@ int dfsNow, depthNow, posInSegTreeNow;
 int rootOfC[100050];
 
 struct SegTreeNode {
-        int maxv, sumv;
+        int maxv;
+        long long sumv;
         int leftSon, rightSon;
 } segTree[10000050];
 int segTreeAllocCnt;
@@ -127,7 +128,7 @@ inline int max(int a, int b)
         return a > b ? a : b;
 }
 
-int querySum(int root, int l, int r, int begin, int end)
+long long querySum(int root, int l, int r, int begin, int end)
 {
         if (begin > end) swap(begin, end);
         if (!root) return 0;
@@ -138,7 +139,7 @@ int querySum(int root, int l, int r, int begin, int end)
                 return 0;
         }
         int mid = (l + r) >> 1;
-        int ret = 0;
+        long long ret = 0;
         if (begin <= mid) {
                 ret += querySum(segTree[root].leftSon, l, mid, begin, end);
         }
@@ -169,9 +170,9 @@ int queryMax(int root, int l, int r, int begin, int end)
         return ret;
 }
 
-inline int solveSum(int c, int x, int y)
+inline long long solveSum(int c, int x, int y)
 {
-        int ret = 0;
+        long long ret = 0;
         while (tree[x].chainTop != tree[y].chainTop) {
                 ret += querySum(
                         rootOfC[c],
@@ -270,7 +271,11 @@ int main()
                 } else {
                         lcaOfXY = lca(x, y);
                         if (cmd[1] == 'S') {
-                                printf("%d\n", solveSum(tree[x].c, x, lcaOfXY) + solveSum(tree[y].c, y, lcaOfXY) - ((tree[x].c == tree[y].c) ? tree[lcaOfXY].w : 0));
+                                long long t = solveSum(tree[x].c, x, lcaOfXY) + solveSum(tree[y].c, y, lcaOfXY);
+                                if (tree[x].c == tree[y].c) {
+                                        t -= tree[lcaOfXY].w;
+                                }
+                                printf("%lld\n", t);
                         } else {
                                 printf("%d\n", max(solveMax(tree[x].c, x, lcaOfXY), solveMax(tree[y].c, y, lcaOfXY)));
                         }
@@ -278,3 +283,4 @@ int main()
         }
         return 0;
 }
+
