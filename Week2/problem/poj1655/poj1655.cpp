@@ -38,16 +38,16 @@ int minSize, ans;
 void dfs(int root, int from)
 {
 	tree[root].father = from;
-	tree[root].subTreeSize = 0;
+	tree[root].subTreeSize = 1;
 	int tmp = 0;
 	for (EdgePointer p = tree[root].edges.begin(); p != tree[root].edges.end(); p++) {
 		if ((*p).to != from) {
 			dfs((*p).to, root);
-			tree[root].subTreeSize += tree[(*p).to].subTreeSize + 1;
-			tmp = max(tmp, tree[(*p).to].subTreeSize + 1);
+			tree[root].subTreeSize += tree[(*p).to].subTreeSize;
+			tmp = max(tmp, tree[(*p).to].subTreeSize);
 		}
 	}
-	tmp = max(tmp, N - tree[root].subTreeSize - 1);
+	tmp = max(tmp, N - tree[root].subTreeSize);
 	if (tmp < minSize || (tmp == minSize && root < ans)) {
 		ans = root;
 		minSize = tmp;
