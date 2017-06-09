@@ -100,14 +100,14 @@ void solve(int now)
 			tree[0].maxTreeSize = treeSize = tree[(*p).to].subTreeSize;
 			root = 0;
 			getRoot((*p).to, 0);
-			solve((*p).to);
+			solve(root);
 		}
 	}
 }
 
 int main()
 {
-	freopen("data.in", "r", stdin);
+	//freopen("data.in", "r", stdin);
 	while (1) {
 		N = getInt();
 		K = getInt();
