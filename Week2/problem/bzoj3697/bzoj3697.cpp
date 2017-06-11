@@ -49,7 +49,7 @@ void getRoot(int now, int from)
 {
 	tree[now].subTreeSize = 1;
 	tree[now].maxTreeSize = 0;
-	for (P p = tree[now].edges.begin(); p != tree[now].edges.end(); p++) {
+	for (P p = tree[now].edges.end() - 1; p >= tree[now].edges.begin(); p--) {
 		if ((*p).to != from && !tree[(*p).to].done) {
 			getRoot((*p).to, now);
 			tree[now].subTreeSize += tree[(*p).to].subTreeSize;
@@ -70,32 +70,32 @@ int maxDepth;
 void dfs(int now, int from)
 {
 	maxDepth = max(maxDepth, tree[now].depthFromRoot);
-	if (appearedTime[tree[now].lengthFromRoot] > 0) {
+	if (appearedTime[zero + tree[now].lengthFromRoot] != 0) {
 		f[zero + tree[now].lengthFromRoot][1]++;
 	} else {
 		f[zero + tree[now].lengthFromRoot][0]++;
 	}
-	appearedTime[tree[now].lengthFromRoot]++;
-	for (P p = tree[now].edges.begin(); p != tree[now].edges.end(); p++) {
+	appearedTime[zero + tree[now].lengthFromRoot]++;
+	for (P p = tree[now].edges.end() - 1; p >= tree[now].edges.begin(); p--) {
 		if ((*p).to != from && !tree[(*p).to].done) {
 			tree[(*p).to].depthFromRoot = tree[now].depthFromRoot + 1;
 			tree[(*p).to].lengthFromRoot = tree[now].lengthFromRoot + (*p).length;
 			dfs((*p).to, now);
 		}
 	}
-	appearedTime[tree[now].lengthFromRoot]--;
+	appearedTime[zero + tree[now].lengthFromRoot]--;
 }
 
 void calc(int now)
 {
 	int usedSize = 0;
 	g[zero][0] = 1;
-	for (P p = tree[now].edges.begin(); p != tree[now].edges.end(); p++) {
+	for (P p = tree[now].edges.end() - 1; p >= tree[now].edges.begin(); p--) {
 		if (!tree[(*p).to].done) {
 			tree[(*p).to].lengthFromRoot = (*p).length;
 			tree[(*p).to].depthFromRoot = 1;
 			maxDepth = 1;
-			dfs((*p).to, (*p).to);
+			dfs((*p).to, 0);
 			usedSize = max(usedSize, maxDepth);
 			ans += (long long)(g[zero][0] - 1) * f[zero][0];
 			for (int i = -maxDepth; i <= maxDepth; i++) {
@@ -111,7 +111,7 @@ void calc(int now)
 		}
 	}
 	for (int i = -usedSize; i <= usedSize; i++) {
-		g[zero + usedSize][0] = g[zero + usedSize][1] = 0;
+		g[zero + i][0] = g[zero + i][1] = 0;
 	}
 }
 
@@ -119,7 +119,7 @@ void solve(int now)
 {
 	tree[now].done = true;
 	calc(now);
-	for (P p = tree[now].edges.begin(); p != tree[now].edges.end(); p++) {
+	for (P p = tree[now].edges.end() - 1; p >= tree[now].edges.begin(); p--) {
 		if (!tree[(*p).to].done) {
 			tree[0].maxTreeSize = treeSize = tree[(*p).to].subTreeSize;
 			root = 0;
@@ -131,6 +131,7 @@ void solve(int now)
 
 int main()
 {
+	//freopen("data.in", "r", stdin);
 	N = getInt();
 	for (int i = 1; i < N; i++) {
 		u = getInt();
