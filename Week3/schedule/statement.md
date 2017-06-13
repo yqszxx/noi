@@ -1,3 +1,5 @@
+<script src='//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
 # 第三周
 
 ## 组合
@@ -16,7 +18,7 @@ splay呢其实没什么好讲的，数据结构本身，旋转、splay的那套�
 
 至于代码的熟练程度，大家可以自己搞个默写的形式，每天起床默一遍，睡前默一遍，在terminal下diff，到**稳定**不出错（或即使有错也能快速纠正）感觉就差不多了。
 
-习题推荐：http://www.cnblogs.com/wangyurzee7/p/5129642.html（这篇博客中提到的所有题包括这题本身，按顺序写一遍，有问题可以看代码）。
+习题推荐：http://www.cnblogs.com/wangyurzee7/p/5129642.html （这篇博客中提到的所有题包括这题本身，按顺序写一遍，有问题可以看代码）。
 
 ## 字符串
 
