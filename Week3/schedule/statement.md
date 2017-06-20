@@ -1,3 +1,5 @@
+<script src='//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
 # 第三周
 
 ## 组合
