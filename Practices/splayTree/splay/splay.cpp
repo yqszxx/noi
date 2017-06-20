@@ -10,6 +10,15 @@ int size[1000]; // size[i]表示i子树的大小，包括i
 int sz; //整棵树的大小
 int root; //整棵树的根
 
+void LDR(int now)
+{
+	if (ch[now][0]) LDR(ch[now][0]);
+	for (int i = 1; i <= cnt[now]; i++) {
+		printf("%d ", key[now]);
+	}
+	if (ch[now][1]) LDR(ch[now][1]);
+}
+
 void print(int now)
 {
 	printf("node[%d]:\nfather:\t%d\nlson:\t%d\nrson:\t%d\nkey:\t%d\ncnt:\t%d\nsize:\t%d\n", now, f[now], ch[now][0], ch[now][1], key[now], cnt[now], size[now]);
@@ -89,7 +98,7 @@ void rotate(int x)
 	update(fx); update(x); // ->具体实现步骤6
 }
 
-void splay(int x) // 将x一路旋转到根
+void splay(int x) // 将x旋转到根
 {
 	for (int fx; (fx = f[x]); rotate(x)) {
 		if (f[fx]) {
@@ -97,6 +106,14 @@ void splay(int x) // 将x一路旋转到根
 		}
 	}
 	root = x;
+}
+
+void splayTo(int x, int y) { // 将x旋转到y下面
+	for (int fx; (fx = f[x]) != y; rotate(x)) {
+		if (f[fx]) {
+			rotate((get(x) == get(fx)) ? fx : x);
+		}
+	}
 }
 
 void insert(int v) //插入类似普通二叉树
@@ -222,12 +239,19 @@ void del(int x) //删除一个值为x的节点
 	update(root); //更新新根大小数据
 }
 
+
+
 int main()
 {
-	int v;
+	int v, w;
 	char c = getchar();
 	while (c != 'Q') {
 		switch (c) {
+			case 't':
+				scanf("%d%d", &v, &w);
+				splayTo(v, w);
+				printf("%d is now just under %d\n", v, w);
+				c = getchar();
 			case 'd':
 				printf("entering debug mode\n");
 				interDebug();
@@ -253,6 +277,11 @@ int main()
 				scanf("%d", &v);
 				splay(v);
 				printf("splay(%d) done\n", v);
+				c = getchar();
+				break;
+			case 'p':
+				LDR(root);
+				printf("\n");
 				c = getchar();
 				break;
 			case 'r':

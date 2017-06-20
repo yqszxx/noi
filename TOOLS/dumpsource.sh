@@ -1,0 +1,4 @@
+#!/bin/bash
+
+read PROBLEM_NUMBER < .PROBLEM_CONFIG
+cat $PROBLEM_NUMBER.cpp
