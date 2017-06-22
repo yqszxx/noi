@@ -108,7 +108,7 @@ void splay(int x) // 将x旋转到根
 	root = x;
 }
 
-void splayTo(int x, int y) { // 将x旋转到y下面
+void splayTo(int x, int y) { // 将x旋转到y的下面
 	for (int fx; (fx = f[x]) != y; rotate(x)) {
 		if (f[fx] != y) {
 			rotate((get(x) == get(fx)) ? fx : x);
@@ -196,7 +196,7 @@ int pre() //求根左子树最右边的节点
 	return now;
 }
 
-int next() //求根右子树最左边的节点
+int nxt() //求根右子树最左边的节点
 {
 	int now = ch[root][1];
 	while (ch[now][0]) {
