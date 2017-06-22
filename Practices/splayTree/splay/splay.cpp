@@ -110,7 +110,7 @@ void splay(int x) // 将x旋转到根
 
 void splayTo(int x, int y) { // 将x旋转到y下面
 	for (int fx; (fx = f[x]) != y; rotate(x)) {
-		if (f[fx]) {
+		if (f[fx] != y) {
 			rotate((get(x) == get(fx)) ? fx : x);
 		}
 	}
@@ -252,6 +252,7 @@ int main()
 				splayTo(v, w);
 				printf("%d is now just under %d\n", v, w);
 				c = getchar();
+				break;
 			case 'd':
 				printf("entering debug mode\n");
 				interDebug();
