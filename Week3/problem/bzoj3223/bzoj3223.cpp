@@ -127,7 +127,7 @@ int main()
 {
 	N = getInt();
 	M = getInt();
-	for (int i = 1; i <= N + 2; i++) {
+	for (int i = 1; i <= N + 2; i++) { //加了一头一尾
 		id[i] = ++sz;
 	}
 	build(1, N + 2, 0);
