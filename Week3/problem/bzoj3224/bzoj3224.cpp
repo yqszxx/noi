@@ -187,6 +187,7 @@ void del(int x)
 	} else if (!ch[root][1]) {
 		int oldRoot = root;
 		root = ch[root][0];
+		f[root] = 0;
 		clear(oldRoot);
 		return;
 	}
